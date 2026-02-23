@@ -4,10 +4,11 @@ services:
     env: python
     region: oregon
     plan: free
+    rootDir: backend
     buildCommand: pip install -r requirements.txt && python train_model.py
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: ALLOWED_ORIGINS
-        value: http://localhost:3000,https://pravah-homes.vercel.app
+        value: http://localhost:3000,https://pravah-workshop-n8zn.vercel.app
       - key: PYTHON_VERSION
         value: "3.11.0"
