@@ -1,0 +1,78 @@
+{
+  "features": [
+    "location",
+    "area_sqft",
+    "bhk",
+    "bathrooms",
+    "floor",
+    "total_floors",
+    "age_of_property",
+    "parking",
+    "lift"
+  ],
+  "target": "actual_price",
+  "metrics": {
+    "r2_score": 0.8396235798446534,
+    "mae": 2562414.009717849,
+    "mse": 11255785503179.277,
+    "rmse": 3354964.3072884213
+  },
+  "locations": [
+    "Airoli",
+    "Belapur",
+    "CBD Belapur",
+    "Ghansoli",
+    "Kharghar",
+    "Nerul",
+    "Panvel",
+    "Ulwe",
+    "Vashi"
+  ],
+  "feature_importance": [
+    {
+      "name": "location",
+      "importance": 0.012408388064276073
+    },
+    {
+      "name": "area_sqft",
+      "importance": 0.8924123694183302
+    },
+    {
+      "name": "bhk",
+      "importance": 0.01716054330715121
+    },
+    {
+      "name": "bathrooms",
+      "importance": 0.005397203950457635
+    },
+    {
+      "name": "floor",
+      "importance": 0.018003432028640527
+    },
+    {
+      "name": "total_floors",
+      "importance": 0.018693138976053847
+    },
+    {
+      "name": "age_of_property",
+      "importance": 0.0308317923744428
+    },
+    {
+      "name": "parking",
+      "importance": 0.0022458669808944594
+    },
+    {
+      "name": "lift",
+      "importance": 0.0028472648997532285
+    }
+  ],
+  "model_name": "GradientBoostingRegressor",
+  "model_params": {
+    "n_estimators": 300,
+    "learning_rate": 0.05,
+    "max_depth": 5,
+    "subsample": 0.8,
+    "min_samples_split": 10,
+    "random_state": 42
+  }
+}

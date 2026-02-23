@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+venv/
+
+# Model artifacts
+*.pkl
+*.joblib
+
+# Environment variables
+.env
+
+# Node modules (React)
+node_modules/
+
+# OS files
+.DS_Store
+Thumbs.db
