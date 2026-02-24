@@ -2,18 +2,18 @@
     "venvPath": "c:\\Users\\Vikas\\OneDrive\\Desktop\\Pravah",
     "venv": ".venv",
     "include": [
-        "."
+        "backend"
     ],
-    "pythonPath": ".venv\\Scripts\\python.exe",
-    "pythonVersion": "3.14",
+    "pythonPlatform": "Windows",
     "typeCheckingMode": "basic",
-    "reportMissingImports": true,
+    "reportMissingImports": false,
+    "reportGeneralTypeIssues": false,
     "executionEnvironments": [
         {
             "root": "backend",
-            "pythonVersion": "3.14",
             "extraPaths": [
-                "."
+                ".",
+                "c:\\Users\\Vikas\\OneDrive\\Desktop\\Pravah\\.venv\\Lib\\site-packages"
             ]
         }
     ]

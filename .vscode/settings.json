@@ -1,9 +1,15 @@
 {
-    "python.defaultInterpreterPath": ".venv\\Scripts\\python.exe",
+    "python.defaultInterpreterPath": "c:\\Users\\Vikas\\OneDrive\\Desktop\\Pravah\\.venv\\Scripts\\python.exe",
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.extraPaths": [
-        "backend",
-        "."
+        "c:\\Users\\Vikas\\OneDrive\\Desktop\\Pravah\\backend",
+        "c:\\Users\\Vikas\\OneDrive\\Desktop\\Pravah\\.venv\\Lib\\site-packages"
     ],
-    "python.analysis.autoImportCompletions": true
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingImports": "none",
+        "reportGeneralTypeIssues": "none",
+        "reportMissingModuleSource": "none"
+    },
+    "python.analysis.pythonPath": "c:\\Users\\Vikas\\OneDrive\\Desktop\\Pravah\\.venv\\Scripts\\python.exe"
 }
