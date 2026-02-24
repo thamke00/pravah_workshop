@@ -1,0 +1,20 @@
+{
+    "venvPath": "c:\\Users\\Vikas\\OneDrive\\Desktop\\Pravah",
+    "venv": ".venv",
+    "include": [
+        "."
+    ],
+    "pythonPath": ".venv\\Scripts\\python.exe",
+    "pythonVersion": "3.14",
+    "typeCheckingMode": "basic",
+    "reportMissingImports": true,
+    "executionEnvironments": [
+        {
+            "root": "backend",
+            "pythonVersion": "3.14",
+            "extraPaths": [
+                "."
+            ]
+        }
+    ]
+}

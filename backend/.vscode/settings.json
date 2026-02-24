@@ -1,7 +1,0 @@
-{
-    "python.defaultInterpreterPath": "c:/Users/Vikas/OneDrive/Desktop/Pravah/.venv/Scripts/python.exe",
-    "python.analysis.typeCheckingMode": "basic",
-    "python.analysis.extraPaths": [
-        "c:/Users/Vikas/OneDrive/Desktop/Pravah/backend"
-    ]
-}

@@ -6,6 +6,8 @@ endpoints. Designed to be deployed on Render (Python runtime).
 Compliant with Google Python Style Guide.
 """
 
+from __future__ import annotations
+
 import json
 import logging
 import os
@@ -139,7 +141,7 @@ class PredictionRequest(BaseModel):
         return value.strip().title()
 
 
-class PredictionResponse(BaseModel):
+class HousePricePredictionResponse(BaseModel):
     """Output schema for the prediction endpoint."""
 
     predicted_price_inr: float
@@ -149,7 +151,7 @@ class PredictionResponse(BaseModel):
     inputs_used: Dict[str, Any]
 
 
-class HealthResponse(BaseModel):
+class ApiHealthResponse(BaseModel):
     """Health check response."""
 
     status: str
@@ -158,7 +160,7 @@ class HealthResponse(BaseModel):
     version: str
 
 
-class ModelInfoResponse(BaseModel):
+class ModelMetadataResponse(BaseModel):
     """Model metadata response."""
 
     model_name: str
@@ -231,10 +233,10 @@ def _encode_input(request: PredictionRequest) -> np.ndarray:
 
 # ── Routes ─────────────────────────────────────────────────────────────────────
 
-@app.get("/api/v1/health", response_model=HealthResponse, tags=["Monitoring"])
-def health() -> HealthResponse:
+@app.get("/api/v1/health", response_model=ApiHealthResponse, tags=["Monitoring"])
+def health() -> ApiHealthResponse:
     """Returns the health status and uptime of the API."""
-    return HealthResponse(
+    return ApiHealthResponse(
         status="ok",
         model_loaded="model" in _state,
         uptime_seconds=float(f"{time.time() - _start_time:.2f}"),
@@ -249,14 +251,14 @@ def get_locations() -> Dict[str, List[str]]:
     return {"locations": metadata.get("locations", [])}
 
 
-@app.get("/api/v1/model-info", response_model=ModelInfoResponse, tags=["Model"])
-def model_info() -> ModelInfoResponse:
+@app.get("/api/v1/model-info", response_model=ModelMetadataResponse, tags=["Model"])
+def model_info() -> ModelMetadataResponse:
     """Returns model metadata, performance metrics, and feature importances."""
     metadata = _state.get("metadata")
     if not metadata:
         raise HTTPException(status_code=503, detail="Model not loaded.")
     metrics = metadata.get("metrics", {})
-    return ModelInfoResponse(
+    return ModelMetadataResponse(
         model_name=metadata.get("model_name", "GradientBoostingRegressor"),
         r2_score=round(metrics.get("r2_score", 0), 4),
         mae=round(metrics.get("mae", 0), 0),
@@ -265,8 +267,8 @@ def model_info() -> ModelInfoResponse:
     )
 
 
-@app.post("/api/v1/predict", response_model=PredictionResponse, tags=["Prediction"])
-def predict(request: PredictionRequest) -> PredictionResponse:
+@app.post("/api/v1/predict", response_model=HousePricePredictionResponse, tags=["Prediction"])
+def predict(request: PredictionRequest) -> HousePricePredictionResponse:
     """Predicts the house price for the given property attributes.
 
     Args:
@@ -289,16 +291,14 @@ def predict(request: PredictionRequest) -> PredictionResponse:
     predicted_val: float = float(model.predict(X_scaled)[0])
     predicted_val = float(max(predicted_val, 0.0))  # guard against negative predictions
 
-    rmse_val: float = float(metadata.get("metrics", {}).get("rmse", 0.0))
-
-    return PredictionResponse(
+    return HousePricePredictionResponse(
         predicted_price_inr=float(f"{predicted_val:.2f}"),
         predicted_price_formatted=_format_inr(predicted_val),
         confidence_range={
-            "low": float(f"{max(0.0, predicted_val - rmse_val):.2f}"),
-            "high": float(f"{predicted_val + rmse_val:.2f}"),
-            "low_formatted": _format_inr(float(max(0.0, predicted_val - rmse_val))),
-            "high_formatted": _format_inr(float(predicted_val + rmse_val)),
+            "low": float(f"{max(0.0, predicted_val - rmse):.2f}"),
+            "high": float(f"{predicted_val + rmse:.2f}"),
+            "low_formatted": _format_inr(float(max(0.0, predicted_val - rmse))),
+            "high_formatted": _format_inr(float(predicted_val + rmse)),
         },
         price_per_sqft=float(f"{predicted_val / request.area_sqft:.2f}") if request.area_sqft else 0.0,
         inputs_used=request.model_dump(),
