@@ -8,12 +8,16 @@ import { Building2, LineChart, Home, Menu, X } from "lucide-react";
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
+        setMounted(true);
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    if (!mounted) return null;
 
     const navLinks = [
         { name: "Home", path: "/", icon: <Home className="w-4 h-4" /> },
@@ -24,8 +28,8 @@ export default function Navbar() {
     return (
         <nav
             className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${isScrolled
-                    ? "py-4 glass border-b border-teal-500/20 px-6 backdrop-blur-xl shadow-2xl"
-                    : "py-6 bg-transparent px-8"
+                ? "py-4 glass border-b border-teal-500/20 px-6 backdrop-blur-xl shadow-2xl"
+                : "py-6 bg-transparent px-8"
                 }`}
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between">

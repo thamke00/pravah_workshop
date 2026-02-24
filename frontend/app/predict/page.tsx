@@ -47,17 +47,23 @@ export default function PredictPage() {
         lift: true
     });
 
+    const [mounted, setMounted] = useState(false);
+
     useEffect(() => {
+        setMounted(true);
         const fetchLocations = async () => {
             try {
                 const res = await axios.get(`${API_URL}/api/v1/locations`);
                 setLocations(res.data.locations);
             } catch (err) {
-                console.error("Failed to fetch locations", err);
+                console.error("[Network Error] Failed to fetch locations:", err);
+                setError("Unable to connect to the backend server. Please ensure it is running.");
             }
         };
         fetchLocations();
     }, []);
+
+    if (!mounted) return null;
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();

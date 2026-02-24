@@ -38,7 +38,6 @@ logger = logging.getLogger(__name__)
 # ── Constants ──────────────────────────────────────────────────────────────────
 RAW_CSV = os.path.join(
     os.path.dirname(__file__),
-    "..",
     "navi_mumbai_real_estate_uncleaned_2500.csv",
 )
 MODEL_DIR = os.path.dirname(__file__)

@@ -32,8 +32,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
-      <body className="gradient-bg min-h-screen font-sans antialiased">
+    <html lang="en" className={`${inter.variable} ${outfit.variable}`} suppressHydrationWarning>
+      <body className="gradient-bg min-h-screen font-sans antialiased" suppressHydrationWarning>
         <Navbar />
         <main>{children}</main>
         <Footer />

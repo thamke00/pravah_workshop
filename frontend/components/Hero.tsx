@@ -1,11 +1,20 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Sparkles, MapPin, TrendingUp } from "lucide-react";
 
 export default function Hero() {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+
     return (
         <section className="relative min-h-screen pt-32 pb-20 px-6 overflow-hidden">
             {/* Background Decor */}

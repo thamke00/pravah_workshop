@@ -1,11 +1,22 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Building2, Github, Twitter, Linkedin, Mail } from "lucide-react";
 import Link from "next/link";
 
 export default function Footer() {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    if (!mounted) return null;
+
     return (
         <footer className="mt-20 border-t border-white/5 bg-navy-950/80 backdrop-blur-md pt-16 pb-8 px-6">
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <div className="col-span-1 md:col-span-1.5">
+                <div className="col-span-1 md:col-span-2">
                     <Link href="/" className="flex items-center gap-2 mb-6">
                         <div className="w-8 h-8 rounded bg-teal-500 flex items-center justify-center">
                             <Building2 className="text-navy-950 w-5 h-5" />
@@ -55,8 +66,12 @@ export default function Footer() {
                             type="text"
                             placeholder="Email address"
                             className="bg-navy-900 border border-white/10 rounded-lg py-3 px-4 w-full focus:outline-none focus:border-teal-500/50 text-sm"
+                            suppressHydrationWarning
                         />
-                        <button className="absolute right-2 top-2 px-4 py-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold rounded-md transition-all">
+                        <button
+                            className="absolute right-2 top-2 px-4 py-1.5 bg-teal-600 hover:bg-teal-500 text-white text-xs font-bold rounded-md transition-all"
+                            suppressHydrationWarning
+                        >
                             Join
                         </button>
                     </div>
