@@ -172,7 +172,7 @@ export default function PredictPage() {
                             </div>
 
                             {/* Other Specs */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                 <div className="space-y-4">
                                     <label className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-500">
                                         <Bath className="w-4 h-4" /> Bathrooms
@@ -187,7 +187,7 @@ export default function PredictPage() {
                                 </div>
                                 <div className="space-y-4">
                                     <label className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-500">
-                                        <Layers className="w-4 h-4" /> Floor
+                                        <Layers className="w-4 h-4" /> Property Floor
                                     </label>
                                     <input
                                         type="number"
@@ -198,7 +198,18 @@ export default function PredictPage() {
                                 </div>
                                 <div className="space-y-4">
                                     <label className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-500">
-                                        <History className="w-4 h-4" /> Age (Yrs)
+                                        <ArrowUpCircle className="w-4 h-4" /> Total Floors (Bldg)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        value={formData.total_floors}
+                                        onChange={(e) => handleInputChange("total_floors", Number(e.target.value))}
+                                        className="w-full bg-navy-900 border border-white/10 rounded-2xl py-4 px-6 text-white text-center font-bold"
+                                    />
+                                </div>
+                                <div className="space-y-4">
+                                    <label className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-500">
+                                        <History className="w-4 h-4" /> Age of Property (Yrs)
                                     </label>
                                     <input
                                         type="number"
