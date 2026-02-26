@@ -9,6 +9,6 @@ services:
     startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: ALLOWED_ORIGINS
-        value: http://localhost:3000,https://pravah-workshop-rho.vercel.app,https://pravah-workshop.onrender.com
+        value: http://localhost:3000,https://pravah-workshop-rho.vercel.app,https://pravah-workshop.onrender.com,https://pravah-workshop-qbz0.onrender.com
       - key: PYTHON_VERSION
         value: "3.11.0"
