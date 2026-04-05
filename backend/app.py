@@ -91,7 +91,7 @@ app = FastAPI(
 # CORS — allow Vercel frontend + local dev
 _allowed_origins_env = os.getenv(
     "ALLOWED_ORIGINS",
-    "http://localhost:3000,http://127.0.0.1:3000",
+    "http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001,http://127.0.0.1:3001",
 )
 _allowed_origins = [o.strip() for o in _allowed_origins_env.split(",")]
 
@@ -202,9 +202,13 @@ def _encode_input(request: PredictionRequest) -> np.ndarray:
     le = encoders.get("location")
     if le is None:
         raise HTTPException(status_code=503, detail="Location encoder not found.")
-    
+
     known_locations = list(le.classes_)
-    if request.location not in known_locations:
+    # Case-insensitive matching
+    location_map = {loc.lower(): loc for loc in known_locations}
+    location_lower = request.location.lower()
+
+    if location_lower not in location_map:
         raise HTTPException(
             status_code=422,
             detail=(
@@ -212,7 +216,9 @@ def _encode_input(request: PredictionRequest) -> np.ndarray:
                 f"Valid options: {known_locations}"
             ),
         )
-    location_encoded = float(le.transform([request.location])[0])
+    # Use the properly cased location from the encoder
+    matched_location = location_map[location_lower]
+    location_encoded = float(le.transform([matched_location])[0])
 
     feature_vector = np.array([[
         location_encoded,
